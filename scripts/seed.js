@@ -9,6 +9,7 @@ const bcrypt = require('bcrypt');
 console.log(11111);
 
 async function seedUsers(client) {
+  console.log(222);
   
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -164,11 +165,7 @@ async function seedRevenue(client) {
 
 async function main() {
   console.log(11112);
-  const client = await db.connect({
-    host: process.env.POSTGRES_HOST,
-    username: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-  });
+  const client = await db.connect();
 
   await seedUsers(client);
   await seedCustomers(client);
@@ -179,7 +176,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.log(222);
 
   console.error(
     'An error occurred while attempting to seed the database:',
