@@ -6,6 +6,7 @@ const {
   users,
 } = require('../app/lib/placeholder-data.js');
 const bcrypt = require('bcrypt');
+console.log(11111);
 
 async function seedUsers(client) {
   
@@ -162,8 +163,12 @@ async function seedRevenue(client) {
 }
 
 async function main() {
-  const client = await db.connect();
-  console.log(11111);
+  console.log(11112);
+  const client = await db.connect({
+    host: process.env.POSTGRES_HOST,
+    username: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+  });
 
   await seedUsers(client);
   await seedCustomers(client);
@@ -174,6 +179,8 @@ async function main() {
 }
 
 main().catch((err) => {
+  console.log(222);
+
   console.error(
     'An error occurred while attempting to seed the database:',
     err,
